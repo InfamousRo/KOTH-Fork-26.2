@@ -1,3 +1,4 @@
+fork for 26.2 of the KotH Plugin
 # King of The Hill
 
 > King of the Hill (also known as King of the Mountain or King of the Castle) is a children's game, the object of which is to stay on top of a large hill or pile (or any other designated area) as the "King of the Hill". Other players attempt to knock the current King off the pile and take their place, thus becoming the new King of the Hill.  
