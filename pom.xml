@@ -28,6 +28,21 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.14.0</version>
+				<configuration>
+					<!-- JDK 23+ no longer runs annotation processors implicitly, so Lombok must be listed here -->
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.42</version>
+						</path>
+					</annotationProcessorPaths>
+					<!-- show every error instead of stopping at 100 -->
+					<compilerArgs>
+						<arg>-Xmaxerrs</arg>
+						<arg>1000</arg>
+					</compilerArgs>
+				</configuration>
 			</plugin>
 			<!-- Bundles json-simple (Paper no longer guarantees it). Not relocated, so the server's copy wins when present. -->
 			<plugin>
