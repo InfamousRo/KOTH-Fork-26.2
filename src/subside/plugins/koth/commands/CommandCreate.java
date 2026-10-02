@@ -1,10 +1,8 @@
 package subside.plugins.koth.commands;
 
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 
 import subside.plugins.koth.areas.Area;
 import subside.plugins.koth.areas.Koth;
@@ -14,6 +12,7 @@ import subside.plugins.koth.modules.Lang;
 import subside.plugins.koth.utils.IPerm;
 import subside.plugins.koth.utils.MessageBuilder;
 import subside.plugins.koth.utils.Perm;
+import subside.plugins.koth.utils.WorldEditUtil;
 
 public class CommandCreate extends AbstractCommand {
 
@@ -35,14 +34,14 @@ public class CommandCreate extends AbstractCommand {
             throw new CommandMessageException(new MessageBuilder(Lang.COMMAND_KOTH_ALREADYEXISTS).koth(getPlugin().getKothHandler(), args[0]));
         }
 
-        Selection sel = ((WorldEditPlugin) getPlugin().getServer().getPluginManager().getPlugin("WorldEdit")).getSelection(player);
+        Location[] sel = WorldEditUtil.getSelection(player);
         if (sel == null) {
             throw new CommandMessageException(Lang.COMMAND_GLOBAL_WESELECT);
         }
         
         // Create Koth
         Koth koth = new Koth(getPlugin().getKothHandler(), args[0]);
-        koth.getAreas().add(new Area(koth.getName(), sel.getMinimumPoint(), sel.getMaximumPoint()));
+        koth.getAreas().add(new Area(koth.getName(), sel[0], sel[1]));
         getPlugin().getKothHandler().addKoth(koth); // Add it to the list
         
         throw new CommandMessageException(new MessageBuilder(Lang.COMMAND_KOTH_CREATED).koth(getPlugin().getKothHandler(), args[0]));

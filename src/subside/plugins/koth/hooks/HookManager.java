@@ -22,14 +22,12 @@ public class HookManager extends AbstractModule {
     
     @Override
     public void onEnable(){
-        registerHook(new VanishHook(this));
-        registerHook(new FeatherboardHook(this));
+        // VanishNoPacket, Featherboard and PvPManager hooks live in src-optional/ (they need jars that can't be resolved from Maven)
         registerHook(new BossbarHook(this));
-        registerHook(new PvPManagerHook(this));
         registerHook(new EssentialsVanishHook(this));
         
         if(Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")){
-            new PlaceholderAPIHook(plugin).hook();
+            new PlaceholderAPIHook(plugin).register();
         }
     }
     

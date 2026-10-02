@@ -39,43 +39,9 @@ public class CaptureTypeRegistry extends AbstractModule {
         registerCaptureClass("capperclass", Capper.class);
         registerCaptureType("player", CappingPlayer.class, true);
         
-        // LegacyFactions, Factions, and FactionsUUID
-        if(hooks.isFactions()) {
-            if(pluginManager.getPlugin("LegacyFactions") != null){
-                registerCaptureType("legacyfactions", CappingLegacyFactions.class, true);
-            } else if(pluginManager.getPlugin("Factions") != null){
-                try {
-                    // If this class is not found it means that Factions is not in the server
-                    Class.forName("com.massivecraft.factions.entity.FactionColl");
-                    registerCaptureType("faction", CappingFactionNormal.class, true);
-                } catch(ClassNotFoundException e){
-                    // So if the class is not found, we add FactionsUUID instead
-                    registerCaptureType("factionuuid", CappingFactionUUID.class, true);
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        
-        // Kingdoms
-        if(hooks.isKingdoms() && pluginManager.getPlugin("Kingdoms") != null){
-            registerCaptureType("kingdom", CappingKingdom.class, true);
-        }
-
-        // Feudal Kingdoms
-        if(hooks.isFeudalKingdoms() && pluginManager.getPlugin("Feudal") != null){
-            registerCaptureType("kingdom", CappingFeudalKingdom.class, true);
-        }
-        
-        // Gangs
-        if(hooks.isGangs() && pluginManager.getPlugin("GangsPlus") != null){
-            registerCaptureType("gang", CappingGang.class, true);
-        }
-        
-        // mcMMO parties
-        if(hooks.isMcMMO() && pluginManager.getPlugin("mcMMO") != null){
-        	registerCaptureType("mcmmoparty", CappingMCMMOParty.class, false);
-        }
+        // The Factions / LegacyFactions / Kingdoms / Feudal / Gangs+ / mcMMO capture types are in src-optional/.
+        // They need third-party jars that can't be resolved from Maven. To re-enable one, move its
+        // Capping*.java back into src/ and re-add its registerCaptureType(...) call here.
     }
     
     @Override

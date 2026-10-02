@@ -1,5 +1,6 @@
 name: KoTH
 main: subside.plugins.koth.KothPlugin
+api-version: '26.2'
 version: 1.5.1
 author: SubSide
 softdepend: [Multiverse-Core, Factions, Kingdoms, LegacyFactions, PlaceholderAPI, VanishNoPacket]

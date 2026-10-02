@@ -16,7 +16,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.json.simple.JSONObject;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+import java.util.Base64;
 
 import subside.plugins.koth.KothPlugin;
 import subside.plugins.koth.modules.Lang;
@@ -85,7 +85,7 @@ public class Utils {
 
             // Serialize that array
             dataOutput.close();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
+            return Base64.getMimeEncoder(76, new byte[]{'\n'}).encodeToString(outputStream.toByteArray()) + "\n";
         }
         catch (Exception e) {
             throw new IllegalStateException("Unable to save item stack.", e);
@@ -94,7 +94,7 @@ public class Utils {
     
     public static ItemStack itemFrom64(String data) throws IOException {
         try {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
             try {
                 return (ItemStack) dataInput.readObject();

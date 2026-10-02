@@ -9,8 +9,6 @@ import org.bukkit.Bukkit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.google.common.collect.Lists;
-
 import lombok.Getter;
 import subside.plugins.koth.KothPlugin;
 import subside.plugins.koth.areas.Koth;
@@ -157,7 +155,7 @@ public class KothHandler extends AbstractModule implements Runnable {
             }
             
             boolean minimumNotMet = false;
-            if (params.isScheduled() && Lists.newArrayList(Bukkit.getOnlinePlayers()).size() < plugin.getConfigHandler().getKoth().getMinimumPlayersNeeded()) {
+            if (params.isScheduled() && Bukkit.getOnlinePlayers().size() < plugin.getConfigHandler().getKoth().getMinimumPlayersNeeded()) {
                 event.setCancelled(true);
                 minimumNotMet = true;
             }

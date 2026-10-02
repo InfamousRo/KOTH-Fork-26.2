@@ -21,7 +21,12 @@ public class MySQL implements IDatabase {
             return connection;
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                // Pre-8.0 Connector/J
+                Class.forName("com.mysql.jdbc.Driver");
+            }
             ConfigHandler.Database cDB = plugin.getConfigHandler().getDatabase();
             String url = "//" + cDB.getHost() +  ":" + cDB.getPort() + "/" + cDB.getDatabase();
             this.connection = DriverManager.getConnection("jdbc:mysql:" + url, cDB.getUsername(), cDB.getPassword());
